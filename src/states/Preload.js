@@ -5,7 +5,8 @@ class Preload extends Phaser.State {
 		//this.game.load.image('myImage', 'assets/my-image.png');
 		//this.game.load.audio('myAudio', 'assets/my-audio.wav');
 		//this.game.load.atlas('myAtlas', 'assets/my-atlas.png', 'assets/my-atlas.json');
-		this.game.load.image('phaser', 'assets/phaser.png');
+		this.game.load.image('spycar', 'assets/spycar1.png');
+		this.game.load.image('road', 'assets/roadAsphalt.jpg')
 	}
 
 	create() {
