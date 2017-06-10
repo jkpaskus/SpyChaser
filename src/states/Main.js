@@ -31,15 +31,42 @@ class Main extends Phaser.State {
 
 
 		this.spycar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + (this.game.world.centerY / 2), 'spycar');
-		this.spycar.anchor.setTo(0.5, 0.5);
+		this.spycar.frameName = 'spycar-default.png';
+
+		this.spycar.anchor.setTo(0.5);
   	this.game.physics.arcade.enable(this.spycar);
 		this.spycar.body.drag.setTo(this.DRAG, this.DRAG);
 		//Example of including an object
-		//let exampleObject = new ExampleObject(this.game);
+		//let exampleObject = new ExampleObject(this.game
 
+		this.keyOne = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+		this.keyTwo = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+		this.keyThree = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+		this.keyFour = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+		this.keyFive = this.game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
 	}
 
 	update() {
+
+		if (this.keyOne.isDown) {
+			this.spycar.frameName = 'spycar-default.png';
+		}
+
+		if (this.keyTwo.isDown) {
+			this.spycar.frameName = 'spycar-front-guns.png';
+		}
+
+		if (this.keyThree.isDown) {
+			this.spycar.frameName = 'spycar-spiketires.png';
+		}
+
+		if (this.keyFour.isDown) {
+			this.spycar.frameName = 'spycar-side-missiles.png';
+		}
+
+		if (this.keyFive.isDown) {
+			this.spycar.frameName = 'spycar-flying.png';
+		}
 
 		this.road.tilePosition.y += 5;
 
