@@ -1,4 +1,4 @@
-#Spy Chaser
+# Spy Chaser
 Spy Chaser is made by Robert Bedard, Dennay Bedard, Jonas Paskus and Jonathan Medina for the first Motor City June Jam. The theme of the Jam is 80's Straight To Video Action. This game is also an homage to the original 1983 arcade game Spy Hunter.
 
 
