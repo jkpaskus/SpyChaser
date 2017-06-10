@@ -1,0 +1,60 @@
+{"frames": [
+
+{
+	"filename": "missile.png",
+	"frame": {"x":0,"y":0,"w":13,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":39},
+	"sourceSize": {"w":13,"h":39}
+},
+{
+	"filename": "spycar-default.png",
+	"frame": {"x":13,"y":0,"w":49,"h":86},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":86},
+	"sourceSize": {"w":49,"h":86}
+},
+{
+	"filename": "spycar-flying.png",
+	"frame": {"x":81,"y":99,"w":108,"h":119},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":119},
+	"sourceSize": {"w":108,"h":119}
+},
+{
+	"filename": "spycar-front-guns.png",
+	"frame": {"x":62,"y":0,"w":51,"h":99},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":99},
+	"sourceSize": {"w":51,"h":99}
+},
+{
+	"filename": "spycar-side-missiles.png",
+	"frame": {"x":0,"y":99,"w":81,"h":93},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":93},
+	"sourceSize": {"w":81,"h":93}
+},
+{
+	"filename": "spycar-spiketires.png",
+	"frame": {"x":113,"y":0,"w":70,"h":93},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":93},
+	"sourceSize": {"w":70,"h":93}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spycar.png",
+	"format": "RGBA8888",
+	"size": {"w":189,"h":218},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:852eb6fad42cc06cf5e5719437174b42:8b60ac9a9b3f35a924fff146a069946c:a77e4a3b2f6eaaceb8114551fb9a1dfe$"
+}
+}
