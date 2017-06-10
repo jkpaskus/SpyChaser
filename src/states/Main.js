@@ -25,7 +25,8 @@ class Main extends Phaser.State {
 
 		this.lines = this.game.add.group();
 		this.game.time.events.loop(Phaser.Timer.SECOND * .5, function() {
-this.lineCreate = true;
+			this.lineCreate = true;
+			this.spycar.bringToTop();
 		}, this);
 
 
