@@ -12,7 +12,10 @@ Clone the repository (or download the ZIP file)
 
 Install dependencies
 
-`npm install`
+```
+cd SpyChaser
+npm install
+```
 
 Run a development build...
 
