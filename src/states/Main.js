@@ -1,5 +1,6 @@
 // import ExampleObject from 'objects/ExampleObject';
 import RoadLine from 'objects/RoadLine';
+import EnemyCar from 'objects/EnemyCar';
 
 class Main extends Phaser.State {
 
@@ -9,6 +10,12 @@ class Main extends Phaser.State {
 		this.DRAG = 50;
 
 		this.lineCreate = false;
+
+		this.rect = this.game.add.bitmapData(20,40);
+		this.rect.ctx.beginPath();
+		this.rect.ctx.rect(0,0,20,40);
+		this.rect.ctx.fillStyle = '#fad201';
+		this.rect.ctx.fill();
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -20,7 +27,7 @@ class Main extends Phaser.State {
 
 		this.road = this.game.add.tileSprite(this.game.world.centerX / 2,
         this.game.height - this.game.cache.getImage('road').height,
-        this.game.width / 2,
+        this.game.cache.getImage('road').width,
         this.game.cache.getImage('road').height, 'road' );
 
 		this.lines = this.game.add.group();
@@ -29,32 +36,40 @@ class Main extends Phaser.State {
 			this.spycar.bringToTop();
 		}, this);
 
+		this.enemies = this.game.add.group();
+		this.game.time.events.loop(Phaser.Timer.SECOND * 2, function() {
+			let posRandMod = this.game.rnd.integerInRange(-200, 200)
+			this.createEnemy({game: this.game, x: this.game.world.centerX + posRandMod, y: -10, asset: 'redcar'});
+		}, this);
 
 		this.spycar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + (this.game.world.centerY / 2), 'spycar');
 		this.spycar.frameName = 'spycar-default.png';
 
 		this.spycar.anchor.setTo(0.5);
   	this.game.physics.arcade.enable(this.spycar);
-		this.spycar.body.drag.setTo(this.DRAG, this.DRAG);
-		//Example of including an object
-		//let exampleObject = new ExampleObject(this.game
+	this.spycar.body.drag.setTo(this.DRAG, this.DRAG);
+	//Example of including an object
+	//let exampleObject = new ExampleObject(this.game
 
-		//binds keys to change cars
-		this.keyOne = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-		this.keyTwo = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
-		this.keyThree = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
-		this.keyFour = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
-		this.keyFive = this.game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
-		this.shoot = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	//binds keys to change cars
+	//Keep spycar on the screen.
+	this.spycar.checkWorldBounds = true;
+	this.spycar.body.collideWorldBounds = true;
 
-		// Define constants for shooting
+	this.keyOne = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+	this.keyTwo = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+	this.keyThree = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+	this.keyFour = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+	this.keyFive = this.game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
+	this.shoot = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
     this.SHOT_DELAY = 100; // milliseconds (10 bullets/second)
     this.BULLET_SPEED = 500; // pixels/second
     this.NUMBER_OF_BULLETS = 100;
 
-		this.gun = this.spycar;
+	this.gun = this.spycar;
 
-		// Create an object pool of bullets
+	// Create an object pool of bullets
     this.bulletPool = this.game.add.group();
     for(var i = 0; i < this.NUMBER_OF_BULLETS; i++) {
         // Create each bullet and add it to the group.
@@ -136,7 +151,7 @@ class Main extends Phaser.State {
   	this.spycar.body.acceleration.y = 0;
 
 		if (this.lineCreate) {
-			this.createLine({game: this.game});
+			this.createLine({game: this.game, x: this.game.world.centerX, y: -10, rect: this.rect});
 			this.lineCreate = false;
 		}
 
@@ -169,6 +184,15 @@ class Main extends Phaser.State {
         line.reset(data);
 	}
 
+	createEnemy(data) {
+		let enemy = this.enemies.getFirstExists(false);
+
+			if(!enemy) {
+				enemy = new EnemyCar(data);
+				this.enemies.add(enemy);
+			}
+			enemy.reset(data);
+	}
 }
 
 export default Main;

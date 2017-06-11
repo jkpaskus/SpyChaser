@@ -7,6 +7,7 @@ class Preload extends Phaser.State {
 		//this.game.load.atlas('myAtlas', 'assets/my-atlas.png', 'assets/my-atlas.json');
 		this.game.load.image('road', 'assets/roadAsphalt.jpg');
 		this.game.load.atlas('spycar', 'assets/spycar.png', 'assets/spycar.json');
+		this.game.load.image('redcar', 'assets/enemyred.png');
 	}
 
 	create() {
