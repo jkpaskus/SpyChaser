@@ -10,6 +10,12 @@ class Main extends Phaser.State {
 
 		this.lineCreate = false;
 
+		this.rect = this.game.add.bitmapData(20,40);
+		this.rect.ctx.beginPath();
+		this.rect.ctx.rect(0,0,20,40);
+		this.rect.ctx.fillStyle = '#fad201';
+		this.rect.ctx.fill();
+
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -20,7 +26,7 @@ class Main extends Phaser.State {
 
 		this.road = this.game.add.tileSprite(this.game.world.centerX / 2,
         this.game.height - this.game.cache.getImage('road').height,
-        this.game.width / 2,
+        this.game.cache.getImage('road').width,
         this.game.cache.getImage('road').height, 'road' );
 
 		this.lines = this.game.add.group();
@@ -74,7 +80,7 @@ class Main extends Phaser.State {
   	this.spycar.body.acceleration.y = 0;
 
 		if (this.lineCreate) {
-			this.createLine({game: this.game});
+			this.createLine({game: this.game, x: this.game.world.centerX, y: -10, rect: this.rect});
 			this.lineCreate = false;
 		}
 
