@@ -1,5 +1,6 @@
 // import ExampleObject from 'objects/ExampleObject';
 import RoadLine from 'objects/RoadLine';
+import EnemyCar from 'objects/EnemyCar';
 
 class Main extends Phaser.State {
 
@@ -35,6 +36,11 @@ class Main extends Phaser.State {
 			this.spycar.bringToTop();
 		}, this);
 
+		this.enemies = this.game.add.group();
+		this.game.time.events.loop(Phaser.Timer.SECOND * 2, function() {
+			let posRandMod = this.game.rnd.integerInRange(-200, 200)
+			this.createEnemy({game: this.game, x: this.game.world.centerX + posRandMod, y: -10, asset: 'redcar'});
+		}, this);
 
 		this.spycar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + (this.game.world.centerY / 2), 'spycar');
 		this.spycar.frameName = 'spycar-default.png';
@@ -44,6 +50,10 @@ class Main extends Phaser.State {
 		this.spycar.body.drag.setTo(this.DRAG, this.DRAG);
 		//Example of including an object
 		//let exampleObject = new ExampleObject(this.game
+
+		//Keep spycar on the screen.
+		this.spycar.checkWorldBounds = true;
+		this.spycar.body.collideWorldBounds = true;
 
 		this.keyOne = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
 		this.keyTwo = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
@@ -113,6 +123,15 @@ class Main extends Phaser.State {
         line.reset(data);
 	}
 
+	createEnemy(data) {
+		let enemy = this.enemies.getFirstExists(false);
+
+			if(!enemy) {
+				enemy = new EnemyCar(data);
+				this.enemies.add(enemy);
+			}
+			enemy.reset(data);
+	}
 }
 
 export default Main;

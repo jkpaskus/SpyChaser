@@ -2,13 +2,7 @@ export default class RoadLine extends Phaser.Sprite {
 
 	constructor({game, x, y, rect}){
 		super(game, x, y, rect);
-		this.game = game; //TODO: Clean this up.
-
-
-
-
-
-		// this.line = this.game.add.sprite(this.game.world.centerX, -10, rect);
+		this.game = game;
 		this.alpha =.5
 	}
 
