@@ -39,7 +39,8 @@ class Main extends Phaser.State {
 		this.enemies = this.game.add.group();
 		this.game.time.events.loop(Phaser.Timer.SECOND * 2, function() {
 			let posRandMod = this.game.rnd.integerInRange(-200, 200)
-			this.createEnemy({game: this.game, x: this.game.world.centerX + posRandMod, y: -10, asset: 'redcar'});
+			let randCar = this.game.rnd.integerInRange(0, 1)
+			this.createEnemy({game: this.game, x: this.game.world.centerX + posRandMod, y: -10, asset: 'enemyCar', frame: randCar});
 		}, this);
 
 		this.spycar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + (this.game.world.centerY / 2), 'spycar');

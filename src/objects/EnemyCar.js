@@ -1,11 +1,12 @@
 export default class EnemyCar extends Phaser.Sprite {
 
-	constructor({game, x, y, asset}){
+	constructor({game, x, y, asset, frame}){
 		super(game, x, y, asset);
 		this.game = game;
 		this.scale.setTo(.20);
 		this.game.physics.arcade.enable(this);
 		this.body.bounce.setTo(1, 1);
+		this.frame = frame;
 	}
 
 	update() {
