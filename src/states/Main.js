@@ -40,7 +40,7 @@ class Main extends Phaser.State {
 		this.game.time.events.loop(Phaser.Timer.SECOND * 2, function() {
 			let posRandMod = this.game.rnd.integerInRange(-200, 200)
 			let randCar = this.game.rnd.integerInRange(0, 1)
-			this.createEnemy({game: this.game, x: this.game.world.centerX + posRandMod, y: -10, asset: 'enemyCar', frame: randCar});
+			this.createEnemy({game: this.game, x: this.game.world.centerX + posRandMod, y: -10, asset: 'enemycar', frame: randCar});
 		}, this);
 
 		this.spycar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + (this.game.world.centerY / 2), 'spycar');
@@ -49,6 +49,7 @@ class Main extends Phaser.State {
 		this.spycar.anchor.setTo(0.5);
   	this.game.physics.arcade.enable(this.spycar);
 		this.spycar.body.drag.setTo(this.DRAG, this.DRAG);
+		this.spycar.body.bounce.setTo(1, 1);
 		//Example of including an object
 		//let exampleObject = new ExampleObject(this.game
 
@@ -122,7 +123,8 @@ class Main extends Phaser.State {
 
 	update() {
 
-		this.game.physics.arcade.collide(this.enemies);
+		this.game.physics.arcade.collide(this.enemies, this.enemies, this.carCollision, null, this);
+		this.game.physics.arcade.collide(this.spycar, this.enemies, this.carCollision, null, this);
 
 		if (this.keyOne.isDown) {
 			this.spycar.frameName = 'spycar-default.png';
@@ -197,6 +199,15 @@ class Main extends Phaser.State {
 		}
 
 		enemy.reset(data);
+	}
+
+	carCollision(car1, car2) {
+		let timer1 = this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
+			car1.kill()
+		}, this);
+		let timer2 = this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
+			car2.kill()
+		}, this);
 	}
 }
 
