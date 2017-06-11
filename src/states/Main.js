@@ -9,6 +9,8 @@ class Main extends Phaser.State {
 		this.ACCELERATION = 200;
 		this.DRAG = 50;
 
+		this.carExploding = this.game.add.audio('carExploding');
+
 		this.lineCreate = false;
 
 		this.rect = this.game.add.bitmapData(20,40);
@@ -204,10 +206,12 @@ class Main extends Phaser.State {
 
 	carCollision(car1, car2) {
 		let timer1 = this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
-			car1.kill()
+			this.carExploding.play();
+			car1.kill();
 		}, this);
 		let timer2 = this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
-			car2.kill()
+			this.carExploding.play();
+			car2.kill();
 		}, this);
 	}
 }
