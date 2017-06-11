@@ -21,7 +21,7 @@ class Main extends Phaser.State {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		//Set the games background colour
-		this.game.stage.backgroundColor = '#cecece';
+		this.game.stage.backgroundColor = '#0B6623';
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 
