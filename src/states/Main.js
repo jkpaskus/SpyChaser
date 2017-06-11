@@ -47,29 +47,29 @@ class Main extends Phaser.State {
 
 		this.spycar.anchor.setTo(0.5);
   	this.game.physics.arcade.enable(this.spycar);
-	this.spycar.body.drag.setTo(this.DRAG, this.DRAG);
-	//Example of including an object
-	//let exampleObject = new ExampleObject(this.game
+		this.spycar.body.drag.setTo(this.DRAG, this.DRAG);
+		//Example of including an object
+		//let exampleObject = new ExampleObject(this.game
 
-	//binds keys to change cars
-	//Keep spycar on the screen.
-	this.spycar.checkWorldBounds = true;
-	this.spycar.body.collideWorldBounds = true;
+		//binds keys to change cars
+		//Keep spycar on the screen.
+		this.spycar.checkWorldBounds = true;
+		this.spycar.body.collideWorldBounds = true;
 
-	this.keyOne = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-	this.keyTwo = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
-	this.keyThree = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
-	this.keyFour = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
-	this.keyFive = this.game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
-	this.shoot = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		this.keyOne = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+		this.keyTwo = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+		this.keyThree = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+		this.keyFour = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+		this.keyFive = this.game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
+		this.shoot = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     this.SHOT_DELAY = 100; // milliseconds (10 bullets/second)
     this.BULLET_SPEED = 500; // pixels/second
     this.NUMBER_OF_BULLETS = 100;
 
-	this.gun = this.spycar;
+		this.gun = this.spycar;
 
-	// Create an object pool of bullets
+		// Create an object pool of bullets
     this.bulletPool = this.game.add.group();
     for(var i = 0; i < this.NUMBER_OF_BULLETS; i++) {
         // Create each bullet and add it to the group.
@@ -120,6 +120,8 @@ class Main extends Phaser.State {
 };
 
 	update() {
+
+		this.game.physics.arcade.collide(this.enemies);
 
 		if (this.keyOne.isDown) {
 			this.spycar.frameName = 'spycar-default.png';
