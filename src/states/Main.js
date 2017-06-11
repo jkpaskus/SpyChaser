@@ -125,6 +125,7 @@ class Main extends Phaser.State {
 
 		this.game.physics.arcade.collide(this.enemies, this.enemies, this.carCollision, null, this);
 		this.game.physics.arcade.collide(this.spycar, this.enemies, this.carCollision, null, this);
+		this.game.physics.arcade.collide(this.bullet, this.enemies, this.bulletCollision, null, this);
 
 		if (this.keyOne.isDown) {
 			this.spycar.frameName = 'spycar-default.png';
@@ -208,6 +209,11 @@ class Main extends Phaser.State {
 		let timer2 = this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
 			car2.kill()
 		}, this);
+	}
+
+	bulletCollision(car) {
+			this.bullet.kill();
+			car.kill();
 	}
 }
 
