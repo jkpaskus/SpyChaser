@@ -39,12 +39,70 @@ class Main extends Phaser.State {
 		//Example of including an object
 		//let exampleObject = new ExampleObject(this.game
 
+		//binds keys to change cars
 		this.keyOne = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
 		this.keyTwo = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
 		this.keyThree = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
 		this.keyFour = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
 		this.keyFive = this.game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
+		this.shoot = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+		// Define constants for shooting
+    this.SHOT_DELAY = 100; // milliseconds (10 bullets/second)
+    this.BULLET_SPEED = 500; // pixels/second
+    this.NUMBER_OF_BULLETS = 100;
+
+		this.gun = this.spycar;
+
+		// Create an object pool of bullets
+    this.bulletPool = this.game.add.group();
+    for(var i = 0; i < this.NUMBER_OF_BULLETS; i++) {
+        // Create each bullet and add it to the group.
+        this.bullet = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + (this.game.world.centerY / 2), 'spycar');
+				this.bullet.frameName = 'missile.png';
+        this.bulletPool.add(this.bullet);
+
+        // Set its pivot point to the center of the bullet
+				this.bullet.anchor.setTo(0.5, 0.5);
+
+ 				// Enable physics on the bullet
+        this.game.physics.enable(this.bullet, Phaser.Physics.ARCADE);
+
+        // Set its initial state to "dead".
+        //this.bullet.kill();
+    }
 	}
+
+	shootBullet() {
+    // Enforce a short delay between shots by recording
+    // the time that each bullet is shot and testing if
+    // the amount of time since the last shot is more than
+    // the required delay.
+    if (this.lastBulletShotAt === undefined) this.lastBulletShotAt = 0;
+    if (this.game.time.now - this.lastBulletShotAt < this.SHOT_DELAY) return;
+    this.lastBulletShotAt = this.game.time.now;
+
+    // If there aren't any bullets available then don't shoot
+    if (this.bullet === null || this.bullet === undefined) return;
+
+    // Revive the bullet
+    // This makes the bullet "alive"
+    this.bullet.revive();
+
+    // Bullets should kill themselves when they leave the world.
+    // Phaser takes care of this for me by setting this flag
+    // but you can do it yourself by killing the bullet if
+    // its x,y coordinates are outside of the world.
+    //this.bullet.checkWorldBounds = true;
+    //this.bullet.outOfBoundsKill = true;
+
+    // Set the bullet position to the gun position.
+    this.bullet.reset(this.gun.x, this.gun.y);
+
+    // Shoot it
+    this.bullet.body.velocity.y = -(this.BULLET_SPEED);
+    this.bullet.body.velocity.x = 0;
+};
 
 	update() {
 
@@ -66,6 +124,10 @@ class Main extends Phaser.State {
 
 		if (this.keyFive.isDown) {
 			this.spycar.frameName = 'spycar-flying.png';
+		}
+
+		if (this.shoot.isDown) {
+			this.shootBullet();
 		}
 
 		this.road.tilePosition.y += 5;
