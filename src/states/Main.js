@@ -63,7 +63,7 @@ class Main extends Phaser.State {
 		this.keyFive = this.game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
 		this.shoot = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-    this.SHOT_DELAY = 100; // milliseconds (10 bullets/second)
+    this.SHOT_DELAY = 1500; // milliseconds (10 bullets/second)
     this.BULLET_SPEED = 500; // pixels/second
     this.NUMBER_OF_BULLETS = 100;
 
@@ -84,7 +84,7 @@ class Main extends Phaser.State {
         this.game.physics.enable(this.bullet, Phaser.Physics.ARCADE);
 
         // Set its initial state to "dead".
-        //this.bullet.kill();
+        this.bullet.kill();
     }
 	}
 
@@ -108,8 +108,8 @@ class Main extends Phaser.State {
     // Phaser takes care of this for me by setting this flag
     // but you can do it yourself by killing the bullet if
     // its x,y coordinates are outside of the world.
-    //this.bullet.checkWorldBounds = true;
-    //this.bullet.outOfBoundsKill = true;
+    this.bullet.checkWorldBounds = true;
+    this.bullet.outOfBoundsKill = true;
 
     // Set the bullet position to the gun position.
     this.bullet.reset(this.gun.x, this.gun.y);
@@ -117,7 +117,7 @@ class Main extends Phaser.State {
     // Shoot it
     this.bullet.body.velocity.y = -(this.BULLET_SPEED);
     this.bullet.body.velocity.x = 0;
-};
+	};
 
 	update() {
 
@@ -179,21 +179,23 @@ class Main extends Phaser.State {
 	createLine(data) {
 		let line = this.lines.getFirstExists(false);
 
-        if (!line) {
-            line = new RoadLine(data);
-            this.lines.add(line);
-        }
-        line.reset(data);
+    if (!line) {
+        line = new RoadLine(data);
+        this.lines.add(line);
+    }
+
+    line.reset(data);
 	}
 
 	createEnemy(data) {
 		let enemy = this.enemies.getFirstExists(false);
 
-			if(!enemy) {
-				enemy = new EnemyCar(data);
-				this.enemies.add(enemy);
-			}
-			enemy.reset(data);
+		if(!enemy) {
+			enemy = new EnemyCar(data);
+			this.enemies.add(enemy);
+		}
+
+		enemy.reset(data);
 	}
 }
 
