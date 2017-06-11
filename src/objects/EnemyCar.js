@@ -5,10 +5,13 @@ export default class EnemyCar extends Phaser.Sprite {
 		this.game = game;
 		this.scale.setTo(.20);
 		this.game.physics.arcade.enable(this);
+		this.body.bounce.setTo(1, 1);
 	}
 
 	update() {
-		this.position.y += 4;
+		this.body.acceleration.y = 35;
+
+		this.game.physics.arcade.collide(this, this.game.state.states.Main.spycar);
 
 		if (this.position.x > this.game.state.states.Main.spycar.position.x) {
 			this.body.acceleration.x = -50
