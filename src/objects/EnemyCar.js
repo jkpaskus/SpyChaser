@@ -26,12 +26,7 @@ export default class EnemyCar extends Phaser.Sprite {
 		}
 	}
 
-	// carCollision(car1, car2) {
-	// 	let timer1 = this.game.time.events.add(Phaser.Timer.SECOND * .50, car1.kill, this);
-	// 	let timer2 = this.game.time.events.add(Phaser.Timer.SECOND * .50, car2.kill, this);
-	// }
-
-	reset({x,y}) {
-		super.reset(x,y);
+	reset({x,y,asset, frame}) {
+		super.reset(x,y, asset, frame);
 	}
 }

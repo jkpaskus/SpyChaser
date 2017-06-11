@@ -25,10 +25,11 @@ class Main extends Phaser.State {
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 
-		this.road = this.game.add.tileSprite(this.game.world.centerX / 2,
-        this.game.height - this.game.cache.getImage('road').height,
-        this.game.cache.getImage('road').width,
-        this.game.cache.getImage('road').height, 'road' );
+		this.road = this.game.add.tileSprite(this.game.world.centerX,
+        this.game.world.centerY,
+        this.game.camera.view.width * .25,
+        this.game.camera.view.height, 'road' );
+		this.road.anchor.setTo(0.5);
 
 		this.lines = this.game.add.group();
 		this.game.time.events.loop(Phaser.Timer.SECOND * .5, function() {
