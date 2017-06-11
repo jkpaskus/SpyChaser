@@ -9,6 +9,8 @@ class Main extends Phaser.State {
 		this.ACCELERATION = 200;
 		this.DRAG = 50;
 
+		this.carExploding = this.game.add.audio('carExploding');
+
 		this.lineCreate = false;
 
 		this.rect = this.game.add.bitmapData(20,40);
@@ -25,10 +27,11 @@ class Main extends Phaser.State {
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 
-		this.road = this.game.add.tileSprite(this.game.world.centerX / 2,
-        this.game.height - this.game.cache.getImage('road').height,
-        this.game.cache.getImage('road').width,
-        this.game.cache.getImage('road').height, 'road' );
+		this.road = this.game.add.tileSprite(this.game.world.centerX,
+        this.game.world.centerY,
+        this.game.camera.view.width * .25,
+        this.game.camera.view.height, 'road' );
+		this.road.anchor.setTo(0.5);
 
 		this.lines = this.game.add.group();
 		this.game.time.events.loop(Phaser.Timer.SECOND * .5, function() {
@@ -204,10 +207,12 @@ class Main extends Phaser.State {
 
 	carCollision(car1, car2) {
 		let timer1 = this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
-			car1.kill()
+			this.carExploding.play();
+			car1.kill();
 		}, this);
 		let timer2 = this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
-			car2.kill()
+			this.carExploding.play();
+			car2.kill();
 		}, this);
 	}
 
